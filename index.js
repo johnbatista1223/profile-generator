@@ -213,7 +213,7 @@ inquirer.prompt([
   const renderedTemplateIntern = renderTemplate(renderedIntern);
   fs.writeFileSync('./renderedTemplate.html', renderedTemplateIntern);
 })
-let InternHtml = (newIntern) =>{
+let internHtml = (newIntern) =>{
   const renderHtml = 
   `<div class="card  bg-info justify-content-center align-items-center" style="width: 18rem;">
   <div class="col card-header">
