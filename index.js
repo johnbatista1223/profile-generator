@@ -7,7 +7,7 @@ const Manager = require('./manager');
 const employeeCardString ='';
 
 //manager
-
+function addManager(){
 inquirer.prompt([
   {
       type: "input",
@@ -122,7 +122,12 @@ const newTemplate =
 </html>`
 return newTemplate
  }
+}
+
+
 //engineer
+function addEngineer()
+{
  inquirer.prompt([
   {
       type: "input",
@@ -177,9 +182,11 @@ let engineerHtml = (newEngineer) =>{
 </div>`
 return renderHtml 
 }
+}
 
 //intern
-inquirer.prompt([
+function addIntern(){
+  inquirer.prompt([
   {
       type: "input",
       message: "Enter intern's name:",
@@ -233,5 +240,11 @@ let internHtml = (newIntern) =>{
 </div>`
 return renderHtml 
 }
+}
+
+function addTeam(){
+
+}
 
 
+addManager();
