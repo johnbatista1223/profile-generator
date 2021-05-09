@@ -5,6 +5,7 @@ const Engineer = require('./engineer');
 const Intern = require('./intern');
 const Manager = require('./manager');
 const employeeCardString = '';
+const allEmployees =[]
 
 //manager
 function addManager() {
@@ -32,15 +33,18 @@ function addManager() {
     {
       type: "list",
       message: "Which type of team member would you like to add?",
-      choices: ["Engineer", "Intern", 'i dont want to add anyone else'],
-      name: "title"
+      choices: ["Manager","Engineer", "Intern", 'None'],
+      name: "AddNext"
     }
   ]).then(answers => {
     console.log(answers)
-    const newManager = new Manager(answers.name, answers.id, answers.email, answers.officeNumber)
-    const renderedManager = managerHtml(newManager);
-    const renderedTemplate = renderTemplate(renderedManager);
-    fs.writeFileSync('./renderedTemplate.html', renderedTemplate);
+    addTeam(answers)
+    const newManager = new Manager(answers.name, answers.id, answers.email, answers.officeNumber);
+    allEmployees.push(newManager);
+    addTeam(answers.AddNext)
+    // const renderedManager = managerHtml(newManager);
+    // const renderedTemplate = renderTemplate(renderedManager);
+    // fs.writeFileSync('./renderedTemplate.html', renderedTemplate);
   })
   let managerHtml = (newManager) => {
     const renderHtml =
@@ -62,66 +66,67 @@ function addManager() {
 </div>`
     return renderHtml
   }
-  function renderTemplate(employeeCards) {
-    const newTemplate =
-      `<html lang="en">
+
+}
+function renderTemplate(employeeCards) {
+  const newTemplate =
+    `<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-  <title>Document</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+  integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<title>Document</title>
 
-  <style>
-    .row {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin-top: 20px;
-      margin-bottom: 20px;
-    }
+<style>
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
 
-    .card {
-      border-radius: 6px;
-      background-color: white;
-      color: lightskyblue;
-      margin: 10px;
-    }
+  .card {
+    border-radius: 6px;
+    background-color: white;
+    color: lightskyblue;
+    margin: 10px;
+  }
 
-    .text {
-      padding: 20px;
-      border-radius: 2px;
-      background-color: lightskyblue;
-      color: black;
-      margin: 15px;
-    }
+  .text {
+    padding: 20px;
+    border-radius: 2px;
+    background-color: lightskyblue;
+    color: black;
+    margin: 15px;
+  }
 
-    .col {
-      flex: 1;
-      text-align: center;
-    }
-  </style>
+  .col {
+    flex: 1;
+    text-align: center;
+  }
+</style>
 </head>
 
 <body>
-  <nav class="navbar navbar-dark bg-info justify-content-center align-items-center">
-    <span class="navbar-brand mb-0 h1">
-      <h1>My Team</h1>
-    </span>
-  </nav>
-  <div class="row">
-  ${employeeCards}
+<nav class="navbar navbar-dark bg-info justify-content-center align-items-center">
+  <span class="navbar-brand mb-0 h1">
+    <h1>My Team</h1>
+  </span>
+</nav>
+<div class="row">
+${employeeCards}
 
-    
+  
 
-  </div>
+</div>
 
 </body>
 
 </html>`
-    return newTemplate
-  }
+  return newTemplate
 }
 
 
@@ -145,22 +150,21 @@ function addEngineer() {
     },
     {
       type: "input",
-      message: "Enter engineer's office number:",
-      name: "officeNumber",
+      message: "Enter engineer's github:",
+      name: "github",
     },
     {
       type: "list",
       message: "Which type of team member would you like to add?",
-      choices: ["Engineer", "Intern", 'i dont want to add anyone else'],
-      name: "title"
+      choices: ["Engineer", "Intern", 'None'],
+      name: "AddNext"
     }
   ]).then(answers => {
     console.log(answers)
-
-    const newEngineer = new Engineer(answers.name, answers.id, answers.email, answers.github)
-    const renderedEngineer = engineerHtml(newEngineer);
-    const renderedTemplateEngineer = renderTemplate(renderedEngineer);
-    fs.writeFileSync('./renderedTemplate.html', renderedTemplateEngineer);
+    // const newEngineer = new Engineer(answers.name, answers.id, answers.email, answers.github)
+    // const renderedEngineer = engineerHtml(newEngineer);
+    // const renderedTemplateEngineer = renderTemplate(renderedEngineer);
+    // fs.writeFileSync('./renderedTemplate.html', renderedTemplateEngineer);
   })
   let engineerHtml = (newEngineer) => {
     const renderHtml =
@@ -204,21 +208,20 @@ function addIntern() {
     },
     {
       type: "input",
-      message: "Enter intern's office number:",
-      name: "officeNumber",
+      message: "Enter intern's School:",
+      name: "school",
     },
     {
       type: "list",
       message: "Which type of team member would you like to add?",
-      choices: ["Engineer", "Intern", 'done'],
-      name: "title"
+      choices: ["Engineer", "Intern", 'None'],
+      name: "AddNext"
     }
   ]).then(answers => {
     console.log(answers)
-    const newIntern = new Intern(answers.name, answers.id, answers.email, answers.school)
-    const renderedIntern = internHtml(newIntern);
-    const renderedTemplateIntern = renderTemplate(renderedIntern);
-    fs.writeFileSync('./renderedTemplate.html', renderedTemplateIntern);
+    // const renderedIntern = internHtml(newIntern);
+    // const renderedTemplateIntern = renderTemplate(renderedIntern);
+    // fs.writeFileSync('./renderedTemplate.html', renderedTemplateIntern);
   })
   let internHtml = (newIntern) => {
     const renderHtml =
@@ -241,16 +244,19 @@ function addIntern() {
     return renderHtml
   }
 }
-function addTeam(answers){
-  if (answers.title === 'Engineer') {
-    addEngineer()
-  }
-  if(answers.title === 'Intern'){
-    addIntern()
-  }
-  if(answers.title === 'done'){
-    return renderHtml
-  }
+function addTeam(AddNext){
+    switch(answers.AddNext){
+      case "Manager":
+        addManager();
+        break;
+        case "Engineer":
+          addEngineer()
+          break;
+          case "Intern":
+            addIntern();
+            break;
+            default:
 
+            break;
+    }
 }
-addManager();
