@@ -210,18 +210,35 @@ function renderNewHtml() {
   let htmlString = '';
   allEmployees.forEach(element => {
     console.log(allEmployees);
-    if ('element === manager') {
+    const newEmployeeEl =allEmployees[i];
+    if (newEmployeeEl === 'manager') {
       htmlString += managerHtml(element);
-    } else if ('element === engineer') {
+    } else if (newEmployeeEl === 'engineer') {
       htmlString += engineerHtml(element);
-    } else if ('element === intern') {
+    } else if (newEmployeeEl === 'intern') {
       htmlString += internHtml(element);
     }
-    const renderedNewTemplate = renderTemplate();
+    const renderedNewTemplate = renderTemplate(employeeCards);
     fs.writeFileSync('./renderedTemplate.html', renderedNewTemplate);
    
   })
 }
+// for (let i = 0; i < allEmployees.length; i++) {
+//   const newEmployeesEl = allEmployees[i];
+//   console.log(newEmployeesEl)
+//   if ('element === manager') {
+//     htmlString += managerHtml(element);
+//   } else if ('element === engineer') {
+//     htmlString += engineerHtml(element);
+//   } else if ('element === intern') {
+//     htmlString += internHtml(element);
+//   }
+//   const renderedNewTemplate = renderTemplate();
+//   fs.writeFileSync('./renderedTemplate.html', renderedNewTemplate);
+ 
+// })
+  
+// }
 
 
 
