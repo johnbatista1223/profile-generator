@@ -4,8 +4,8 @@ const Employee = require('./employee');
 const Engineer = require('./engineer');
 const Intern = require('./intern');
 const Manager = require('./manager');
-const employeeCardString = '';
 const allEmployees = []
+const allTeamHtml = []
 
 addManager()
 //manager
@@ -34,20 +34,22 @@ function addManager() {
     {
       type: "list",
       message: "Which type of team member would you like to add?",
-      choices: ["Manager", "Engineer", "Intern", 'None'],
+      choices: ["Manager", "Engineer", "Intern", 'done'],
       name: "AddNext"
     }
   ]).then(answers => {
     console.log(answers)
     const newManager = new Manager(answers.name, answers.id, answers.email, answers.officeNumber);
     allEmployees.push(newManager);
+    const renderedManager = managerHtml(newManager);
+    allTeamHtml.push(renderedManager);
     addTeam(answers.AddNext);
-    // const renderedManager = managerHtml(newManager);
     // const renderedTemplate = renderTemplate(renderedManager);
     // fs.writeFileSync('./renderedTemplate.html', renderedTemplate);
   })
 }
 function renderTemplate(employeeCards) {
+  console.log(employeeCards);
   const newTemplate =
     `<html lang="en">
 <head>
@@ -96,7 +98,7 @@ function renderTemplate(employeeCards) {
   </span>
   </nav>
   <div class="row">
-  ${employeeCards}
+  ${employeeCards.join(',')}
 
   
 
@@ -135,13 +137,15 @@ function addEngineer() {
     {
       type: "list",
       message: "Which type of team member would you like to add?",
-      choices: ["Manager", "Engineer", "Intern", 'None'],
+      choices: ["Manager", "Engineer", "Intern", 'done'],
       name: "AddNext"
     }
   ]).then(answers => {
     console.log(answers)
     const newEngineer = new Engineer(answers.name, answers.id, answers.email, answers.github);
     allEmployees.push(newEngineer);
+    const renderedEngineer = engineerHtml(newEngineer);
+    allTeamHtml.push(renderedEngineer);
     addTeam(answers.AddNext);
     // const newEngineer = new Engineer(answers.name, answers.id, answers.email, answers.github)
     // const renderedEngineer = engineerHtml(newEngineer);
@@ -176,13 +180,15 @@ function addIntern() {
     {
       type: "list",
       message: "Which type of team member would you like to add?",
-      choices: ["Manager", "Engineer", "Intern", 'None'],
+      choices: ["Manager", "Engineer", "Intern", 'done'],
       name: "AddNext"
     }
   ]).then(answers => {
     console.log(answers)
     const newIntern = new Intern(answers.name, answers.id, answers.email, answers.school);
     allEmployees.push(newIntern);
+    const renderedIntern = internHtml(newIntern);
+    allTeamHtml.push(renderedIntern);
     addTeam(answers.AddNext);
     // const renderedIntern = internHtml(newIntern);
     // const renderedTemplateIntern = renderTemplate(renderedIntern);
@@ -200,47 +206,18 @@ function addTeam(AddNext) {
     case "Intern":
       addIntern();
       break;
+    case "done":
+      renderNewHtml (renderTemplate(allTeamHtml))
+      break;
     default:
       renderNewHtml()
       break;
   }
 }
 
-function renderNewHtml() {
-  let htmlString = '';
-  allEmployees.forEach(element => {
-    console.log(allEmployees);
-    const newEmployeeEl =allEmployees[i];
-    if (newEmployeeEl === 'manager') {
-      htmlString += managerHtml(element);
-    } else if (newEmployeeEl === 'engineer') {
-      htmlString += engineerHtml(element);
-    } else if (newEmployeeEl === 'intern') {
-      htmlString += internHtml(element);
-    }
-    const renderedNewTemplate = renderTemplate(employeeCards);
-    fs.writeFileSync('./renderedTemplate.html', renderedNewTemplate);
-   
-  })
+function renderNewHtml(finalHtml) {
+     fs.writeFileSync('./renderedTemplate.html', finalHtml);
 }
-// for (let i = 0; i < allEmployees.length; i++) {
-//   const newEmployeesEl = allEmployees[i];
-//   console.log(newEmployeesEl)
-//   if ('element === manager') {
-//     htmlString += managerHtml(element);
-//   } else if ('element === engineer') {
-//     htmlString += engineerHtml(element);
-//   } else if ('element === intern') {
-//     htmlString += internHtml(element);
-//   }
-//   const renderedNewTemplate = renderTemplate();
-//   fs.writeFileSync('./renderedTemplate.html', renderedNewTemplate);
- 
-// })
-  
-// }
-
-
 
 let managerHtml = (newManager) => {
   const renderHtml =
