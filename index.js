@@ -5,7 +5,7 @@ const Engineer = require('./engineer');
 const Intern = require('./intern');
 const Manager = require('./manager');
 const employeeCardString = '';
-const allEmployees =[]
+const allEmployees = []
 
 addManager()
 //manager
@@ -34,7 +34,7 @@ function addManager() {
     {
       type: "list",
       message: "Which type of team member would you like to add?",
-      choices: ["Manager","Engineer", "Intern", 'None'],
+      choices: ["Manager", "Engineer", "Intern", 'None'],
       name: "AddNext"
     }
   ]).then(answers => {
@@ -135,7 +135,7 @@ function addEngineer() {
     {
       type: "list",
       message: "Which type of team member would you like to add?",
-      choices: ["Manager","Engineer", "Intern", 'None'],
+      choices: ["Manager", "Engineer", "Intern", 'None'],
       name: "AddNext"
     }
   ]).then(answers => {
@@ -176,7 +176,7 @@ function addIntern() {
     {
       type: "list",
       message: "Which type of team member would you like to add?",
-      choices: ["Manager","Engineer", "Intern", 'None'],
+      choices: ["Manager", "Engineer", "Intern", 'None'],
       name: "AddNext"
     }
   ]).then(answers => {
@@ -189,39 +189,43 @@ function addIntern() {
     // fs.writeFileSync('./renderedTemplate.html', renderedTemplateIntern);
   })
 }
-function addTeam(AddNext){
-  switch(AddNext){
+function addTeam(AddNext) {
+  switch (AddNext) {
     case "Manager":
       addManager();
       break;
-      case "Engineer":
-        addEngineer()
-        break;
-        case "Intern":
-          addIntern();
-          break;
-          default:
-            renderNewHtml()
-          break;
+    case "Engineer":
+      addEngineer()
+      break;
+    case "Intern":
+      addIntern();
+      break;
+    default:
+      renderNewHtml()
+      break;
   }
 }
 
-function renderNewHtml(){
+function renderNewHtml() {
   let htmlString = '';
-  allEmployees.forEach(element =>{
-  if('element === manager'){
-    htmlString += managerHtml(element);
-  }else if ('element === engineer'){
-    htmlString += engineerHtml(element);
-  }else if ('element === intern'){
-    htmlString += internHtml(element);
-  }
+  allEmployees.forEach(element => {
+    console.log(allEmployees);
+    if ('element === manager') {
+      htmlString += managerHtml(element);
+    } else if ('element === engineer') {
+      htmlString += engineerHtml(element);
+    } else if ('element === intern') {
+      htmlString += internHtml(element);
+    }
+    const renderedNewTemplate = renderTemplate();
+    fs.writeFileSync('./renderedTemplate.html', renderedNewTemplate);
+   
   })
-  }
-  
-  
+}
 
-  let managerHtml = (newManager) => {
+
+
+let managerHtml = (newManager) => {
   const renderHtml =
     `<div class="card  bg-info justify-content-center align-items-center" style="width: 18rem;">
   <div class="col card-header">
@@ -240,9 +244,9 @@ function renderNewHtml(){
 
   </div>`
   return renderHtml
-  }
+}
 
-  let engineerHtml = (newEngineer) => {
+let engineerHtml = (newEngineer) => {
   const renderHtml =
     `<div class="card  bg-info justify-content-center align-items-center" style="width: 18rem;">
     <div class="col card-header">
