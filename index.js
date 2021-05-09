@@ -7,6 +7,7 @@ const Manager = require('./manager');
 const employeeCardString = '';
 const allEmployees =[]
 
+addManager()
 //manager
 function addManager() {
   inquirer.prompt([
@@ -38,35 +39,13 @@ function addManager() {
     }
   ]).then(answers => {
     console.log(answers)
-    addTeam(answers)
     const newManager = new Manager(answers.name, answers.id, answers.email, answers.officeNumber);
     allEmployees.push(newManager);
-    addTeam(answers.AddNext)
+    addTeam(answers.AddNext);
     // const renderedManager = managerHtml(newManager);
     // const renderedTemplate = renderTemplate(renderedManager);
     // fs.writeFileSync('./renderedTemplate.html', renderedTemplate);
   })
-  let managerHtml = (newManager) => {
-    const renderHtml =
-      `<div class="card  bg-info justify-content-center align-items-center" style="width: 18rem;">
-  <div class="col card-header">
-    <h4>Manager</h4>
-  </div>
-
-  <div class="col card-header">
-    <h4>${newManager.name}</h4>
-  </div>
-
-  <ul class="list-group list-group-flush text">
-    <li class="list-group-item">ID:${newManager.id}</li>
-    <li class="list-group-item">Email:${newManager.email} </li>
-    <li class="list-group-item"> office number:${newManager.officeNumber} </li>
-  </ul>
-
-</div>`
-    return renderHtml
-  }
-
 }
 function renderTemplate(employeeCards) {
   const newTemplate =
@@ -107,25 +86,25 @@ function renderTemplate(employeeCards) {
     flex: 1;
     text-align: center;
   }
-</style>
-</head>
+  </style>
+  </head>
 
-<body>
-<nav class="navbar navbar-dark bg-info justify-content-center align-items-center">
+  <body>
+  <nav class="navbar navbar-dark bg-info justify-content-center align-items-center">
   <span class="navbar-brand mb-0 h1">
     <h1>My Team</h1>
   </span>
-</nav>
-<div class="row">
-${employeeCards}
+  </nav>
+  <div class="row">
+  ${employeeCards}
 
   
 
-</div>
+  </div>
 
-</body>
+  </body>
 
-</html>`
+  </html>`
   return newTemplate
 }
 
@@ -156,36 +135,19 @@ function addEngineer() {
     {
       type: "list",
       message: "Which type of team member would you like to add?",
-      choices: ["Engineer", "Intern", 'None'],
+      choices: ["Manager","Engineer", "Intern", 'None'],
       name: "AddNext"
     }
   ]).then(answers => {
     console.log(answers)
+    const newEngineer = new Engineer(answers.name, answers.id, answers.email, answers.github);
+    allEmployees.push(newEngineer);
+    addTeam(answers.AddNext);
     // const newEngineer = new Engineer(answers.name, answers.id, answers.email, answers.github)
     // const renderedEngineer = engineerHtml(newEngineer);
     // const renderedTemplateEngineer = renderTemplate(renderedEngineer);
     // fs.writeFileSync('./renderedTemplate.html', renderedTemplateEngineer);
   })
-  let engineerHtml = (newEngineer) => {
-    const renderHtml =
-      `<div class="card  bg-info justify-content-center align-items-center" style="width: 18rem;">
-  <div class="col card-header">
-    <h4>Manager</h4>
-  </div>
-
-  <div class="col card-header">
-    <h4>${newEngineer.name}</h4>
-  </div>
-
-  <ul class="list-group list-group-flush text">
-    <li class="list-group-item">ID:${newEngineer.id}</li>
-    <li class="list-group-item">Email:${newEngineer.email} </li>
-    <li class="list-group-item"> github:${newEngineer.github} </li>
-  </ul>
-
-</div>`
-    return renderHtml
-  }
 }
 
 //intern
@@ -214,49 +176,110 @@ function addIntern() {
     {
       type: "list",
       message: "Which type of team member would you like to add?",
-      choices: ["Engineer", "Intern", 'None'],
+      choices: ["Manager","Engineer", "Intern", 'None'],
       name: "AddNext"
     }
   ]).then(answers => {
     console.log(answers)
+    const newIntern = new Intern(answers.name, answers.id, answers.email, answers.school);
+    allEmployees.push(newIntern);
+    addTeam(answers.AddNext);
     // const renderedIntern = internHtml(newIntern);
     // const renderedTemplateIntern = renderTemplate(renderedIntern);
     // fs.writeFileSync('./renderedTemplate.html', renderedTemplateIntern);
   })
-  let internHtml = (newIntern) => {
-    const renderHtml =
-      `<div class="card  bg-info justify-content-center align-items-center" style="width: 18rem;">
+}
+function addTeam(AddNext){
+  switch(AddNext){
+    case "Manager":
+      addManager();
+      break;
+      case "Engineer":
+        addEngineer()
+        break;
+        case "Intern":
+          addIntern();
+          break;
+          default:
+            renderNewHtml()
+          break;
+  }
+}
+
+function renderNewHtml(){
+  let htmlString = '';
+  allEmployees.forEach(element =>{
+  if('element === manager'){
+    htmlString += managerHtml(element);
+  }else if ('element === engineer'){
+    htmlString += engineerHtml(element);
+  }else if ('element === intern'){
+    htmlString += internHtml(element);
+  }
+  })
+  }
+  
+  
+
+  let managerHtml = (newManager) => {
+  const renderHtml =
+    `<div class="card  bg-info justify-content-center align-items-center" style="width: 18rem;">
   <div class="col card-header">
-    <h4>Manager</h4>
+  <h4>Manager</h4>
   </div>
 
   <div class="col card-header">
-    <h4>${newIntern.name}</h4>
+  <h4>${newManager.name}</h4>
   </div>
 
   <ul class="list-group list-group-flush text">
-    <li class="list-group-item">ID:${newIntern.id}</li>
-    <li class="list-group-item">Email:${newIntern.email} </li>
-    <li class="list-group-item"> School:${newIntern.school} </li>
+  <li class="list-group-item">ID:${newManager.id}</li>
+  <li class="list-group-item">Email:${newManager.email} </li>
+  <li class="list-group-item"> office number:${newManager.officeNumber} </li>
   </ul>
 
-</div>`
-    return renderHtml
+  </div>`
+  return renderHtml
   }
-}
-function addTeam(AddNext){
-    switch(answers.AddNext){
-      case "Manager":
-        addManager();
-        break;
-        case "Engineer":
-          addEngineer()
-          break;
-          case "Intern":
-            addIntern();
-            break;
-            default:
 
-            break;
-    }
+  let engineerHtml = (newEngineer) => {
+  const renderHtml =
+    `<div class="card  bg-info justify-content-center align-items-center" style="width: 18rem;">
+    <div class="col card-header">
+    <h4>Manager</h4>
+    </div>
+
+  <div class="col card-header">
+  <h4>${newEngineer.name}</h4>
+  </div>
+
+  <ul class="list-group list-group-flush text">
+  <li class="list-group-item">ID:${newEngineer.id}</li>
+  <li class="list-group-item">Email:${newEngineer.email} </li>
+  <li class="list-group-item"> github:${newEngineer.github} </li>
+  </ul>
+
+  </div>`
+  return renderHtml
+}
+
+let internHtml = (newIntern) => {
+  const renderHtml =
+    `<div class="card  bg-info justify-content-center align-items-center" style="width: 18rem;">
+  <div class="col card-header">
+  <h4>Manager</h4>
+  </div>
+
+  <div class="col card-header">
+  <h4>${newIntern.name}</h4>
+  </div>
+
+  <ul class="list-group list-group-flush text">
+  <li class="list-group-item">ID:${newIntern.id}</li>
+  <li class="list-group-item">Email:${newIntern.email} </li>
+  <li class="list-group-item"> School:${newIntern.school} </li>
+  </ul>
+
+  </div>`
+  return renderHtml
 }
