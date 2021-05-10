@@ -7,7 +7,7 @@ This project is to create a team profile you get prompted with a series of quest
  you can clone code from repository in github link and bring it down to your local drive. From thier you can use visual studio code as your ide or any other is fine, after you clone the repository you need to open up terminal using the command line. type in node.js and index.js to start the team profile generator.
 ## Usage
  clone the repo from https://github.com/johnbatista1223/profile-generator you can use visual studio code as ide then open in google chrome or any browser. the usage for this app is to create a team using node.js and render html file .
- <img src="profilegen.png" alt="profile generator" width 300>
+ <img src="profilegen.png" alt="profile generator" width =300>
 
 ## License
 MIT License
