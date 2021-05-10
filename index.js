@@ -44,8 +44,7 @@ function addManager() {
     const renderedManager = managerHtml(newManager);
     allTeamHtml.push(renderedManager);
     addTeam(answers.AddNext);
-    // const renderedTemplate = renderTemplate(renderedManager);
-    // fs.writeFileSync('./renderedTemplate.html', renderedTemplate);
+
   })
 }
 function renderTemplate(employeeCards) {
@@ -147,10 +146,6 @@ function addEngineer() {
     const renderedEngineer = engineerHtml(newEngineer);
     allTeamHtml.push(renderedEngineer);
     addTeam(answers.AddNext);
-    // const newEngineer = new Engineer(answers.name, answers.id, answers.email, answers.github)
-    // const renderedEngineer = engineerHtml(newEngineer);
-    // const renderedTemplateEngineer = renderTemplate(renderedEngineer);
-    // fs.writeFileSync('./renderedTemplate.html', renderedTemplateEngineer);
   })
 }
 
@@ -184,15 +179,11 @@ function addIntern() {
       name: "AddNext"
     }
   ]).then(answers => {
-    console.log(answers)
     const newIntern = new Intern(answers.name, answers.id, answers.email, answers.school);
     allEmployees.push(newIntern);
     const renderedIntern = internHtml(newIntern);
     allTeamHtml.push(renderedIntern);
     addTeam(answers.AddNext);
-    // const renderedIntern = internHtml(newIntern);
-    // const renderedTemplateIntern = renderTemplate(renderedIntern);
-    // fs.writeFileSync('./renderedTemplate.html', renderedTemplateIntern);
   })
 }
 function addTeam(AddNext) {
@@ -216,6 +207,7 @@ function addTeam(AddNext) {
 }
 
 function renderNewHtml(finalHtml) {
+  console.log(finalHtml)
      fs.writeFileSync('./renderedTemplate.html', finalHtml);
 }
 
@@ -244,7 +236,7 @@ let engineerHtml = (newEngineer) => {
   const renderHtml =
     `<div class="card  bg-info justify-content-center align-items-center" style="width: 18rem;">
     <div class="col card-header">
-    <h4>Manager</h4>
+    <h4>Engineer</h4>
     </div>
 
   <div class="col card-header">
@@ -265,7 +257,7 @@ let internHtml = (newIntern) => {
   const renderHtml =
     `<div class="card  bg-info justify-content-center align-items-center" style="width: 18rem;">
   <div class="col card-header">
-  <h4>Manager</h4>
+  <h4>Intern</h4>
   </div>
 
   <div class="col card-header">
